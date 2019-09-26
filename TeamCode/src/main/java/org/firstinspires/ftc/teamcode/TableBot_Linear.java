@@ -61,7 +61,7 @@ public class TableBot_Linear extends LinearOpMode {
 
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
-            double drive = gamepad1.left_stick_y;
+            double drive = -gamepad1.left_stick_y;
             //double drive = Math.max( gamepad1.left_stick_y, Math.max(gamepad1.right_stick_y, gamepad1.right_trigger - gamepad1.left_trigger));
             double turn = -( gamepad1.left_stick_x);  //Turning using the left stick.
             double strafe = (gamepad1.right_stick_x);  //Strafing using the right stick.
