@@ -13,6 +13,10 @@ import com.qualcomm.robotcore.util.Range;
 public class TableBot_Linear extends LinearOpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
+    //lfd is left front drive
+    //rfd is right front drive
+    //lbd is left back drive
+    //rbd is right back drive
     private DcMotor lfd = null;
     private DcMotor rfd = null;
     private DcMotor lbd = null;
@@ -26,10 +30,10 @@ public class TableBot_Linear extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        lfd  = hardwareMap.get(DcMotor.class, "left_front");
-        rfd = hardwareMap.get(DcMotor.class, "right_front");
-        lbd  = hardwareMap.get(DcMotor.class, "left_back");
-        rbd = hardwareMap.get(DcMotor.class, "right_back");
+        lfd  = hardwareMap.get(DcMotor.class, HardwareReference.LEFT_FRONT_DRIVE);
+        rfd = hardwareMap.get(DcMotor.class, HardwareReference.RIGHT_FRONT_DRIVE);
+        lbd  = hardwareMap.get(DcMotor.class, HardwareReference.LEFT_REAR_DRIVE);
+        rbd = hardwareMap.get(DcMotor.class, HardwareReference.RIGHT_REAR_DRIVE);
         //foo = hardwareMap.get(DcMotor.class, "foo_motor");
 
         // Most robots need the motor on one side to be reversed to drive forward
@@ -59,8 +63,8 @@ public class TableBot_Linear extends LinearOpMode {
             // - This uses basic math to combine motions and is easier to drive straight.
             double drive = gamepad1.left_stick_y;
             //double drive = Math.max( gamepad1.left_stick_y, Math.max(gamepad1.right_stick_y, gamepad1.right_trigger - gamepad1.left_trigger));
-            double turn = ( gamepad1.left_stick_x);
-            double strafe = (gamepad1.right_stick_x);
+            double turn = ( gamepad1.left_stick_x);  //Turning using the left stick.
+            double strafe = (gamepad1.right_stick_x);  //Strafing using the right stick.
             leftPower    = drive - turn;
             rightPower   = drive + turn;
 
@@ -69,8 +73,6 @@ public class TableBot_Linear extends LinearOpMode {
             // - This requires no math, but it is hard to drive forward slowly and keep straight.
             // leftPower  = -gamepad1.left_stick_y ;
             // rightPower = -gamepad1.right_stick_y ;
-
-
 
             // Send calculated power to wheels
             lfd.setPower(Range.clip(leftPower+strafe, -1.0, 1.0));
