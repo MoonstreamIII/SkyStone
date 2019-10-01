@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 @SuppressWarnings("FieldCanBeLocal")
-@TeleOp(name="Demo Op Mode - Linear",group="Linear")
+@TeleOp(name="TableBot Op Mode - Linear",group="Linear")
 //@Disabled
 public class TableBot_Linear extends LinearOpMode {
     // Declare OpMode members.
