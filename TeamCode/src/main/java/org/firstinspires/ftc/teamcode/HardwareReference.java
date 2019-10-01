@@ -4,8 +4,11 @@ public class HardwareReference {
     //These are currently blank, but the strings, when filled, will tell the robot phone the motor corresponding to the name.
     //TODO:Fill these out
     //TODO:Add definitions for arm parts
-    public static final String LEFT_FRONT_DRIVE = "";
-    public static final String LEFT_REAR_DRIVE = "";
-    public static final String RIGHT_FRONT_DRIVE = "";
-    public static final String RIGHT_REAR_DRIVE = "";
+    public static final String LEFT_FRONT_DRIVE = "lfd";
+    public static final String LEFT_REAR_DRIVE = "lrd";
+    public static final String RIGHT_FRONT_DRIVE = "rfd";
+    public static final String RIGHT_REAR_DRIVE = "rrd";
+    //Definitions for example
+    public static final String ARM_TOP = "ARM_TOP";
+    public static final String ARM_BOTTOM = "ARM_BOTTOM";
 }
