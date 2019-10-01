@@ -101,9 +101,14 @@ public class SimpleTank_Linear2 extends LinearOpMode {
 
             // Tank Mode uses one stick to control each wheel.
             // - This requires no math, but it is hard to drive forward slowly and keep straight.
-            leftPower  = 1;
-            rightPower = -1;
+            leftPower  = 0;
+            rightPower = 0;
 
+
+            if (gamepad1.x) {
+                leftPower = 1;
+                rightPower = -1;
+            }
             // Send calculated power to wheels
             leftDrive.setPower(leftPower);
             rightDrive.setPower(rightPower);
