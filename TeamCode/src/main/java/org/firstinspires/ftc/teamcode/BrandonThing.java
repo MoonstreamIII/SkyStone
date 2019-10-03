@@ -48,7 +48,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-
+//TODO: Make a motor called "blah" that is controlled by gamepad 1's left stick (add a definition in the Hardware Reference)
 @TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
 @Disabled
 public class BrandonThing extends LinearOpMode {
