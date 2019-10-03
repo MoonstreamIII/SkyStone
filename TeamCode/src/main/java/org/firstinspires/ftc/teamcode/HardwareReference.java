@@ -7,5 +7,9 @@ public class HardwareReference {
     public static final String LEFT_REAR_DRIVE = "lrd";
     public static final String RIGHT_FRONT_DRIVE = "rfd";
     public static final String RIGHT_REAR_DRIVE = "rrd";
+    public static final String LINEAR_SLIDE_BOTTOM = "linearslidebottom";
+    public static final String LINEAR_SLIDE_TOP = "linearslidetop";
+    public static final String LEFT_HAND_SERVO = "lefthand";
+    public static final String RIGHT_HAND_SERVO = "righthand";
     //BradonStuff
 }
