@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 
 /**
@@ -54,6 +55,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class BrandonThing extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
+    //I coppied this: private DcMotor lfd = null;
+    private DcMotor bla = null;
 
     @Override
     public void runOpMode() {
@@ -64,6 +67,25 @@ public class BrandonThing extends LinearOpMode {
         // step (using the FTC Robot Controller app on the phone).
 
 
+
+
+
+        //telemetry.addData("Status", "Initialized");
+        //        telemetry.update();
+
+        telemetry.addData("Bla motor Status", "Initialized");
+        telemetry.update();
+
+        //lfd  = hardwareMap.get(DcMotor.class, HardwareReference.LEFT_FRONT_DRIVE);
+        bla  = hardwareMap.get(DcMotor.class, HardwareReference.LEFT_FRONT_DRIVE);
+//Note: for this to actaully work i need to add the name of the motor to the HardwareReference class
+
+
+        //lfd.setDirection(DcMotor.Direction.FORWARD);
+        bla.setDirection(DcMotor.Direction.FORWARD);
+
+
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
@@ -71,6 +93,31 @@ public class BrandonThing extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
+            // double leftPower;
+            double blaPower;
+
+
+
+            //double drive = -gamepad1.left_stick_y;
+            //            //double drive = Math.max( gamepad1.left_stick_y, Math.max(gamepad1.right_stick_y, gamepad1.right_trigger - gamepad1.left_trigger));
+            //            double turn = -( gamepad1.left_stick_x);  //Turning using the left stick.
+            //            double strafe = (gamepad1.right_stick_x);  //Strafing using the right stick.
+            //            leftPower    = drive - turn;
+
+
+            double drive = -gamepad1.left_stick_y;
+            //double drive = Math.max( gamepad1.left_stick_y, Math.max(gamepad1.right_stick_y, gamepad1.right_trigger - gamepad1.left_trigger));
+            double turn = -( gamepad1.left_stick_x);  //Turning using the left stick.
+            double strafe = (gamepad1.right_stick_x);  //Strafing using the right stick.
+            blaPower  = drive - turn;
+
+
+            //coppied: lfd.setPower(Range.clip(leftPower+strafe, -1.0, 1.0));
+
+            bla.setPower(Range.clip(blaPower+strafe, -1.0, 1.0));
+
+            telemetry.addLine("Bla motor works");
+            telemetry.update();
         }
     }
 }
