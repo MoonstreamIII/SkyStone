@@ -36,6 +36,8 @@ public class SkyBot_Linear_Prototype extends LinearOpMode {
         lbd  = hardwareMap.get(DcMotor.class, HardwareReference.LEFT_REAR_DRIVE);
         rbd = hardwareMap.get(DcMotor.class, HardwareReference.RIGHT_REAR_DRIVE);
         //foo = hardwareMap.get(DcMotor.class, "foo_motor");
+        topSlide = hardwareMap.get(DcMotor.class, HardwareReference.LINEAR_SLIDE_TOP);
+        bottomSlide = hardwareMap.get(DcMotor.class, HardwareReference.LINEAR_SLIDE_BOTTOM);
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
@@ -43,6 +45,8 @@ public class SkyBot_Linear_Prototype extends LinearOpMode {
         rfd.setDirection(DcMotor.Direction.REVERSE);
         lbd.setDirection(DcMotor.Direction.FORWARD);
         rbd.setDirection(DcMotor.Direction.REVERSE);
+        topSlide.setDirection(DcMotor.Direction.REVERSE);
+        bottomSlide.setDirection(DcMotor.Direction.REVERSE);
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -54,8 +58,8 @@ public class SkyBot_Linear_Prototype extends LinearOpMode {
             // Setup a variable for each drive wheel to save power level for telemetry
             double leftPower;
             double rightPower;
-            double upTopPower;
-            double upBottomPower;
+            double topPower;
+            double bottomPower;
 
             // Choose to drive using either Tank Mode, or POV Mode
             // Comment out the method that's not used.  The default below is POV.
@@ -70,6 +74,9 @@ public class SkyBot_Linear_Prototype extends LinearOpMode {
             leftPower    = drive - turn;
             rightPower   = drive + turn;
 
+            topPower = -gamepad2.right_stick_y;
+            bottomPower = gamepad2.right_stick_x;
+
 
             // Tank Mode uses one stick to control each wheel.
             // - This requires no math, but it is hard to drive forward slowly and keep straight.
@@ -81,7 +88,8 @@ public class SkyBot_Linear_Prototype extends LinearOpMode {
             rfd.setPower(Range.clip(rightPower-strafe, -1.0, 1.0));
             lbd.setPower(Range.clip(leftPower-strafe, -1.0, 1.0));
             rbd.setPower(Range.clip(rightPower+strafe, -1.0, 1.0));
-
+            topSlide.setPower(Range.clip(topPower, -1.0, 1.0));
+            bottomSlide.setPower(Range.clip(bottomPower, -1.0, 1.0));
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
