@@ -109,12 +109,12 @@ public class BrandonThing extends LinearOpMode {
             //double drive = Math.max( gamepad1.left_stick_y, Math.max(gamepad1.right_stick_y, gamepad1.right_trigger - gamepad1.left_trigger));
             double turn = -( gamepad1.left_stick_x);  //Turning using the left stick.
             double strafe = (gamepad1.right_stick_x);  //Strafing using the right stick.
-            blaPower  = drive - turn;
+            blaPower  = gamepad1.right_stick_y;
 
 
             //coppied: lfd.setPower(Range.clip(leftPower+strafe, -1.0, 1.0));
 
-            bla.setPower(Range.clip(blaPower+strafe, -1.0, 1.0));
+            bla.setPower(Range.clip(blaPower, -1.0, 1.0));
 
             telemetry.addLine("Bla motor works");
             telemetry.update();
