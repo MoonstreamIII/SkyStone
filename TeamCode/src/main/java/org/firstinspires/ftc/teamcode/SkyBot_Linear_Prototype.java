@@ -23,6 +23,7 @@ public class SkyBot_Linear_Prototype extends LinearOpMode {
     private DcMotor topSlide = null;
     private DcMotor bottomSlide = null;
 
+
     @Override
     public void runOpMode() {
         telemetry.addData("Status", "Initialized");
