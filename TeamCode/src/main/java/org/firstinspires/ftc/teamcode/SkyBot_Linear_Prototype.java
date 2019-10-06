@@ -12,13 +12,6 @@ import com.qualcomm.robotcore.util.Range;
 //@Disabled
 public class SkyBot_Linear_Prototype extends LinearOpMode {
 
-
-
-    //Brandon Question: Why don't you need to reference the SykBot_Linear_Prototype code inside of the runOpMode? Won't it not be used and/or not run?
-    //Is it because it only contains variables (other than the instance)?
-
-
-
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     //lfd is left front drive
@@ -83,6 +76,7 @@ public class SkyBot_Linear_Prototype extends LinearOpMode {
             double rightPower;
             double topPower;
             double bottomPower;
+
             //Toggles the function that, when active, makes the hand close when any of the bumpers or triggers are pressed. If this is off, the left bumper and trigger open the hand, and the right bumper and trigger close the hand.
             if (holdToCloseToggle&&gamepad2.left_stick_button) {
                 holdToCloseToggle = false;
