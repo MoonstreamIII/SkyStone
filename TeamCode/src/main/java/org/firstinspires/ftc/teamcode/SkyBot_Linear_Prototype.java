@@ -11,6 +11,14 @@ import com.qualcomm.robotcore.util.Range;
 @TeleOp(name="SkyBot Op Mode - Linear Prototype",group="Linear")
 //@Disabled
 public class SkyBot_Linear_Prototype extends LinearOpMode {
+
+
+
+    //Brandon Question: Why don't you need to reference the SykBot_Linear_Prototype code inside of the runOpMode? Won't it not be used and/or not run?
+    //Is it because it only contains variables (other than the instance)?
+
+
+
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     //lfd is left front drive
@@ -158,19 +166,19 @@ public class SkyBot_Linear_Prototype extends LinearOpMode {
             if (closed) {
                 rightHand.setPosition(rightClosed);
                 leftHand.setPosition(leftClosed);
-            } else {
-                rightHand.setPosition(rightOpen);
-                leftHand.setPosition(leftOpen);
-            }
-
-            // Show the elapsed game time and wheel power.
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-            telemetry.update();
+} else {
+        rightHand.setPosition(rightOpen);
+        leftHand.setPosition(leftOpen);
         }
-    }
 
-    private void depositMineral(DcMotor bottom, DcMotor top) {
+        // Show the elapsed game time and wheel power.
+        telemetry.addData("Status", "Run Time: " + runtime.toString());
+        telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+        telemetry.update();
+        }
+        }
 
-    }
+private void depositMineral(DcMotor bottom, DcMotor top) {
+
+        }
 }
