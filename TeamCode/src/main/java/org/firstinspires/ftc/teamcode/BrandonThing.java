@@ -113,7 +113,7 @@ public class BrandonThing extends LinearOpMode {
 
 
             //coppied: lfd.setPower(Range.clip(leftPower+strafe, -1.0, 1.0));
-
+            //TODO: Brandon, get rid of strafe, you want bla to run based just on the right stick.
             bla.setPower(Range.clip(blaPower+strafe, -1.0, 1.0));
 
             telemetry.addLine("Bla motor works");
