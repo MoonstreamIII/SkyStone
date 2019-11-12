@@ -123,9 +123,10 @@ public class SkyBot_Linear_Modulation_1Hub extends LinearOpMode {
 
             topPower = -gamepad2.right_stick_y;
             bottomPower = -gamepad2.left_stick_y;
+            fullOpen=(gamepad2.left_bumper||gamepad2.left_trigger>0);
+            closed=(gamepad2.right_bumper||gamepad2.right_trigger>0);
 
-
-
+/*
             if (leftBumperToggle&&gamepad2.left_bumper) {
                 leftBumperToggle = false;
                 if (fullOpen) {
@@ -148,7 +149,7 @@ public class SkyBot_Linear_Modulation_1Hub extends LinearOpMode {
             if (!gamepad2.right_bumper) {
                 rightBumperToggle = true;
             }
-
+*/
 
             //Figuring out if the hand is open or closed
 
