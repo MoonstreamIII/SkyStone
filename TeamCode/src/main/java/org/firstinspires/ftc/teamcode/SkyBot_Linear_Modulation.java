@@ -164,8 +164,8 @@ public class SkyBot_Linear_Modulation extends LinearOpMode {
             rbd.setPower(Range.clip((rightPower+strafe)*modulation, -1.0, 1.0));
 
 
-            topSlide.setPower(Range.clip(topPower+bottomPower, -1.0, 1.0));
-            bottomSlide.setPower(Range.clip(topPower+bottomPower, -1.0, 1.0));
+            topSlide.setPower(Range.clip(topPower, -1.0, 1.0));
+            bottomSlide.setPower(Range.clip(bottomPower, -1.0, 1.0));
 
             if (fullOpen) {
                 rightHand.setPosition(rightFullOpen);
