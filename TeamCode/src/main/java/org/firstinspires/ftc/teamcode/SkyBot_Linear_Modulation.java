@@ -33,7 +33,7 @@ public class SkyBot_Linear_Modulation extends LinearOpMode {
     private final double leftClosed = 0.0;
     private final double rightClosed = 0.0;
     private boolean closed = false;
-    private boolean fullOpen = true;
+    private boolean fullOpen = false;
     private boolean rightStrafe = true;
     private double modulation = 0;
     private boolean leftBumperToggle = true;
@@ -90,9 +90,9 @@ public class SkyBot_Linear_Modulation extends LinearOpMode {
                 rightStrafe = true;
             }
             modulation = gamepad1.left_trigger+gamepad1.right_trigger;
-            if (gamepad1.left_bumper||gamepad1.right_bumper) {
+            /*if (gamepad1.left_bumper||gamepad1.right_bumper) {
                 modulation = 1;
-            }
+            }*/
 
 
 
@@ -117,15 +117,15 @@ public class SkyBot_Linear_Modulation extends LinearOpMode {
                 strafe = (gamepad1.right_stick_x);  //Strafing using the right stick
             } else
                 strafe = (gamepad1.left_stick_x);  //Strafing using the right stick
-            leftPower    = drive - turn;
-            rightPower   = drive + turn;
+            leftPower    = -(drive - turn);
+            rightPower   = -(drive + turn);
 
             topPower = -gamepad2.right_stick_y;
             bottomPower = -gamepad2.left_stick_y;
 
 
 
-            if (leftBumperToggle&&gamepad2.left_bumper) {
+            /*if (leftBumperToggle&&gamepad2.left_bumper) {
                 leftBumperToggle = false;
                 if (fullOpen) {
                     fullOpen = false;
@@ -146,7 +146,8 @@ public class SkyBot_Linear_Modulation extends LinearOpMode {
             }
             if (!gamepad2.right_bumper) {
                 rightBumperToggle = true;
-            }
+            }*/
+            closed = (gamepad2.right_bumper||gamepad2.left_bumper);
 
 
             //Figuring out if the hand is open or closed
@@ -158,14 +159,14 @@ public class SkyBot_Linear_Modulation extends LinearOpMode {
             // rightPower = -gamepad1.right_stick_y ;
 
             // Send calculated power to wheels
-            lfd.setPower(Range.clip((leftPower+strafe)*modulation, -1.0, 1.0));
-            rfd.setPower(Range.clip((rightPower-strafe)*modulation, -1.0, 1.0));
-            lbd.setPower(Range.clip((leftPower-strafe)*modulation, -1.0, 1.0));
-            rbd.setPower(Range.clip((rightPower+strafe)*modulation, -1.0, 1.0));
+            lfd.setPower(Range.clip((leftPower-strafe)*modulation, -1.0, 1.0));
+            rfd.setPower(Range.clip((rightPower+strafe)*modulation, -1.0, 1.0));
+            lbd.setPower(Range.clip((leftPower+strafe)*modulation, -1.0, 1.0));
+            rbd.setPower(Range.clip((rightPower-strafe)*modulation, -1.0, 1.0));
 
 
             topSlide.setPower(Range.clip(topPower, -1.0, 1.0));
-            bottomSlide.setPower(Range.clip(bottomPower, -1.0, 1.0));
+            bottomSlide.setPower(Range.clip(-bottomPower, -1.0, 1.0));
 
             if (fullOpen) {
                 rightHand.setPosition(rightFullOpen);
@@ -175,8 +176,10 @@ public class SkyBot_Linear_Modulation extends LinearOpMode {
                     rightHand.setPosition(rightClosed);
                     leftHand.setPosition(leftClosed);
                 } else {
-                    rightHand.setPosition(rightClosed);
-                    leftHand.setPosition(leftClosed);
+                    //rightHand.setPosition(rightOpen);
+                    //leftHand.setPosition(leftOpen);
+                    rightHand.setPosition(rightFullOpen);
+                    leftHand.setPosition(leftFullOpen);
                 }
             }
         // Show the elapsed game time and wheel power.
