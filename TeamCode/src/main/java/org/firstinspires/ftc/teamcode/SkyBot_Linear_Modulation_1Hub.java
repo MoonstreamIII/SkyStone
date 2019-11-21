@@ -21,18 +21,21 @@ public class SkyBot_Linear_Modulation_1Hub extends LinearOpMode {
     //rbd is right back drive
     private DcMotor lfd = null;
     private DcMotor rfd = null;
+    /*
     private DcMotor lbd = null;
-    private DcMotor rbd = null;
+    private DcMotor rbd = null;*/
     private DcMotor topSlide = null;
     private DcMotor bottomSlide = null;
     private Servo leftHand = null;
     private Servo rightHand = null;
-    private final double leftFullOpen = 1.0;
-    private final double rightFullOpen = 1.0;
-    private final double rightOpen = 0.5;
-    private final double leftOpen = 0.5;
-    private final double leftClosed = 0.0;
-    private final double rightClosed = 0.0;
+    //Currently, all servo positions must remain on the interval [0.13,0.87].
+    //0.5 is full open, 0.87 is full closed on the left, and 0.13 is full closed on the right.
+    private final double leftFullOpen = 0.5;
+    private final double rightFullOpen = 0.5;
+    private final double rightOpen = 0.35;
+    private final double leftOpen = 0.65;
+    private final double leftClosed = 0.87;
+    private final double rightClosed = 0.13;
     private boolean closed = false;
     private boolean fullOpen = true;
     private boolean rightStrafe = true;
@@ -52,18 +55,20 @@ public class SkyBot_Linear_Modulation_1Hub extends LinearOpMode {
         // step (using the FTC Robot Controller app on the phone).
         lfd  = hardwareMap.get(DcMotor.class, HardwareReference.LEFT_FRONT_DRIVE);
         rfd = hardwareMap.get(DcMotor.class, HardwareReference.RIGHT_FRONT_DRIVE);
+        /* removed these objects because they are not in the configuration for the robot
         lbd  = hardwareMap.get(DcMotor.class, HardwareReference.LEFT_REAR_DRIVE);
-        rbd = hardwareMap.get(DcMotor.class, HardwareReference.RIGHT_REAR_DRIVE);
+        rbd = hardwareMap.get(DcMotor.class, HardwareReference.RIGHT_REAR_DRIVE);*/
         //foo = hardwareMap.get(DcMotor.class, "foo_motor");
         topSlide = hardwareMap.get(DcMotor.class, HardwareReference.LINEAR_SLIDE_TOP);
         bottomSlide = hardwareMap.get(DcMotor.class, HardwareReference.LINEAR_SLIDE_BOTTOM);
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        lfd.setDirection(DcMotor.Direction.FORWARD);
-        rfd.setDirection(DcMotor.Direction.REVERSE);
+        lfd.setDirection(DcMotor.Direction.REVERSE);
+        rfd.setDirection(DcMotor.Direction.FORWARD);
+        /*
         lbd.setDirection(DcMotor.Direction.FORWARD);
-        rbd.setDirection(DcMotor.Direction.REVERSE);
+        rbd.setDirection(DcMotor.Direction.REVERSE);*/
         topSlide.setDirection(DcMotor.Direction.REVERSE);
         bottomSlide.setDirection(DcMotor.Direction.REVERSE);
         leftHand.setDirection(Servo.Direction.FORWARD);
@@ -166,8 +171,8 @@ public class SkyBot_Linear_Modulation_1Hub extends LinearOpMode {
             //rbd.setPower(Range.clip((rightPower+strafe)*modulation, -1.0, 1.0));
 
 
-            topSlide.setPower(Range.clip(topPower+bottomPower, -1.0, 1.0));
-            bottomSlide.setPower(Range.clip(topPower+bottomPower, -1.0, 1.0));
+            topSlide.setPower(Range.clip(topPower/*+bottomPower*/, -1.0, 1.0));
+            bottomSlide.setPower(Range.clip(/*topPower+*/bottomPower, -1.0, 1.0));
 
             if (fullOpen) {
                 rightHand.setPosition(rightFullOpen);
@@ -186,9 +191,5 @@ public class SkyBot_Linear_Modulation_1Hub extends LinearOpMode {
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
         telemetry.update();
         }
-        }
-
-private void depositMineral(DcMotor bottom, DcMotor top) {
-
-        }
+    }
 }
