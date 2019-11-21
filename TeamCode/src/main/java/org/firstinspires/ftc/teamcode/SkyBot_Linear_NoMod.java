@@ -29,14 +29,14 @@ public class SkyBot_Linear_NoMod extends LinearOpMode {
     private Servo rightHand = null;
     //Currently, all servo positions must remain on the interval [0.13,0.87].
     //0.5 is full open, 0.87 is full closed on the left, and 0.13 is full closed on the right.
-    private final double leftFullOpen = 0.5;
-    private final double rightFullOpen = 0.5;
-    private final double rightOpen = 0.35;
-    private final double leftOpen = 0.65;
-    private final double leftClosed = 0.87;
-    private final double rightClosed = 0.13;
+    private final double leftFullOpen = 0.19;
+    private final double rightFullOpen = 0.84;
+    private final double rightOpen = 0.45;
+    private final double leftOpen = 0.58;
+    private final double leftClosed = 0.65;
+    private final double rightClosed = 0.37;
     private boolean closed = false;
-    private boolean fullOpen = false;
+    private boolean fullOpen = true;
     private boolean rightStrafe = true;
     private double modulation = 0;
     private boolean leftBumperToggle = true;
@@ -131,10 +131,10 @@ public class SkyBot_Linear_NoMod extends LinearOpMode {
 
             if (leftBumperToggle&&gamepad2.left_bumper) {
                 leftBumperToggle = false;
-                if (closed) {
-                    closed = false;
+                if (fullOpen) {
+                    fullOpen = false;
                 } else {
-                    closed = true;
+                    fullOpen = true;
                 }
             }
             if (!gamepad2.left_bumper) {
@@ -180,10 +180,10 @@ public class SkyBot_Linear_NoMod extends LinearOpMode {
                     rightHand.setPosition(rightClosed);
                     leftHand.setPosition(leftClosed);
                 } else {
-                    //rightHand.setPosition(rightOpen);
-                    //leftHand.setPosition(leftOpen);
-                    rightHand.setPosition(rightFullOpen);
-                    leftHand.setPosition(leftFullOpen);
+                    rightHand.setPosition(rightOpen);
+                    leftHand.setPosition(leftOpen);
+                    //rightHand.setPosition(rightFullOpen);
+                    //leftHand.setPosition(leftFullOpen);
                 }
             }
         // Show the elapsed game time and wheel power.
