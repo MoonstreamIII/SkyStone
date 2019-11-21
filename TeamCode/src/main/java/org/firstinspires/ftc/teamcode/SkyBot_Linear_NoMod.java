@@ -31,8 +31,8 @@ public class SkyBot_Linear_NoMod extends LinearOpMode {
     //0.5 is full open, 0.87 is full closed on the left, and 0.13 is full closed on the right.
     private final double leftFullOpen = 0.19;
     private final double rightFullOpen = 0.84;
-    private final double rightOpen = 0.45;
-    private final double leftOpen = 0.58;
+    private final double rightOpen = 0.61;
+    private final double leftOpen = 0.42;
     private final double leftClosed = 0.65;
     private final double rightClosed = 0.37;
     private boolean closed = false;

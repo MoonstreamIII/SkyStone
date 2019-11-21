@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+
 //This is a system where the triggers control the speed of the bot. For example, if you have the left stick at full forward and the left trigger half pressed in, you get half power.
 @SuppressWarnings("FieldCanBeLocal")
 @TeleOp(name="SkyBot Op Mode - Linear With Modulation",group="Linear")
@@ -28,14 +29,14 @@ public class SkyBot_Linear_Modulation extends LinearOpMode {
     private Servo rightHand = null;
     //Currently, all servo positions must remain on the interval [0.13,0.87].
     //0.5 is full open, 0.87 is full closed on the left, and 0.13 is full closed on the right.
-    private final double leftFullOpen = 0.5;
-    private final double rightFullOpen = 0.5;
-    private final double rightOpen = 0.35;
-    private final double leftOpen = 0.65;
-    private final double leftClosed = 0.87;
-    private final double rightClosed = 0.13;
+    private final double leftFullOpen = 0.19;
+    private final double rightFullOpen = 0.84;
+    private final double rightOpen = 0.61;
+    private final double leftOpen = 0.42;
+    private final double leftClosed = 0.65;
+    private final double rightClosed = 0.37;
     private boolean closed = false;
-    private boolean fullOpen = false;
+    private boolean fullOpen = true;
     private boolean rightStrafe = true;
     private double modulation = 0;
     private boolean leftBumperToggle = true;
@@ -91,7 +92,8 @@ public class SkyBot_Linear_Modulation extends LinearOpMode {
             if (gamepad1.left_bumper&&gamepad1.right_bumper&&gamepad1.right_stick_button) {
                 rightStrafe = true;
             }
-            modulation = gamepad1.left_trigger+gamepad1.right_trigger;
+            modulation = 1;
+        modulation = gamepad1.left_trigger+gamepad1.right_trigger;
             /*if (gamepad1.left_bumper||gamepad1.right_bumper) {
                 modulation = 1;
             }*/
@@ -127,7 +129,7 @@ public class SkyBot_Linear_Modulation extends LinearOpMode {
 
 
 
-            /*if (leftBumperToggle&&gamepad2.left_bumper) {
+            if (leftBumperToggle&&gamepad2.left_bumper) {
                 leftBumperToggle = false;
                 if (fullOpen) {
                     fullOpen = false;
@@ -148,8 +150,8 @@ public class SkyBot_Linear_Modulation extends LinearOpMode {
             }
             if (!gamepad2.right_bumper) {
                 rightBumperToggle = true;
-            }*/
-            closed = (gamepad2.right_bumper||gamepad2.left_bumper);
+            }
+            /*closed = (gamepad2.right_bumper||gamepad2.left_bumper);*/
 
 
             //Figuring out if the hand is open or closed
@@ -178,16 +180,16 @@ public class SkyBot_Linear_Modulation extends LinearOpMode {
                     rightHand.setPosition(rightClosed);
                     leftHand.setPosition(leftClosed);
                 } else {
-                    //rightHand.setPosition(rightOpen);
-                    //leftHand.setPosition(leftOpen);
-                    rightHand.setPosition(rightFullOpen);
-                    leftHand.setPosition(leftFullOpen);
+                    rightHand.setPosition(rightOpen);
+                    leftHand.setPosition(leftOpen);
+                    //rightHand.setPosition(rightFullOpen);
+                    //leftHand.setPosition(leftFullOpen);
                 }
             }
-        // Show the elapsed game time and wheel power.
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-        telemetry.update();
+            // Show the elapsed game time and wheel power.
+            telemetry.addData("Status", "Run Time: " + runtime.toString());
+            telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+            telemetry.update();
         }
     }
 }
