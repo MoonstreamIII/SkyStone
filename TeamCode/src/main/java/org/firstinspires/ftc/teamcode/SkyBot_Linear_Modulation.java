@@ -26,12 +26,14 @@ public class SkyBot_Linear_Modulation extends LinearOpMode {
     private DcMotor bottomSlide = null;
     private Servo leftHand = null;
     private Servo rightHand = null;
-    private final double leftFullOpen = 1.0;
-    private final double rightFullOpen = 1.0;
-    private final double rightOpen = 0.5;
-    private final double leftOpen = 0.5;
-    private final double leftClosed = 0.0;
-    private final double rightClosed = 0.0;
+    //Currently, all servo positions must remain on the interval [0.13,0.87].
+    //0.5 is full open, 0.87 is full closed on the left, and 0.13 is full closed on the right.
+    private final double leftFullOpen = 0.5;
+    private final double rightFullOpen = 0.5;
+    private final double rightOpen = 0.35;
+    private final double leftOpen = 0.65;
+    private final double leftClosed = 0.87;
+    private final double rightClosed = 0.13;
     private boolean closed = false;
     private boolean fullOpen = false;
     private boolean rightStrafe = true;
@@ -187,9 +189,5 @@ public class SkyBot_Linear_Modulation extends LinearOpMode {
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
         telemetry.update();
         }
-        }
-
-private void depositMineral(DcMotor bottom, DcMotor top) {
-
-        }
+    }
 }
