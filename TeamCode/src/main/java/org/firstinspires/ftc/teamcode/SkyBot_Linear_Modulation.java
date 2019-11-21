@@ -92,8 +92,7 @@ public class SkyBot_Linear_Modulation extends LinearOpMode {
             if (gamepad1.left_bumper&&gamepad1.right_bumper&&gamepad1.right_stick_button) {
                 rightStrafe = true;
             }
-            modulation = 1;
-        modulation = gamepad1.left_trigger+gamepad1.right_trigger;
+            modulation = gamepad1.left_trigger+gamepad1.right_trigger;
             /*if (gamepad1.left_bumper||gamepad1.right_bumper) {
                 modulation = 1;
             }*/
