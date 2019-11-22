@@ -30,12 +30,12 @@ public class SkyBot_Linear_Modulation_1Hub extends LinearOpMode {
     private Servo rightHand = null;
     //Currently, all servo positions must remain on the interval [0.13,0.87].
     //0.5 is full open, 0.87 is full closed on the left, and 0.13 is full closed on the right.
-    private final double leftFullOpen = 0.5;
-    private final double rightFullOpen = 0.5;
-    private final double rightOpen = 0.35;
-    private final double leftOpen = 0.65;
-    private final double leftClosed = 0.87;
-    private final double rightClosed = 0.13;
+    private final double leftFullOpen = 0.13;
+    private final double rightFullOpen = 0.83;
+    private final double rightOpen = 0.53;
+    private final double leftOpen = 0.41;
+    private final double leftClosed = 0.74;
+    private final double rightClosed = 0.19;
     private boolean closed = false;
     private boolean fullOpen = true;
     private boolean rightStrafe = true;
