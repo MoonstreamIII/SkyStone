@@ -27,8 +27,8 @@ public class SkyBot_Linear_NoMod extends LinearOpMode {
     private DcMotor bottomSlide = null;
     private Servo leftHand = null;
     private Servo rightHand = null;
-    //Currently, all servo positions must remain on the interval [0.13,0.87].
-    //0.5 is full open, 0.87 is full closed on the left, and 0.13 is full closed on the right.
+    //Currently, all servo positions must remain on
+    //the interval [0.13,0.87], or the servos will not respond.
     private final double leftFullOpen = 0.13;
     private final double rightFullOpen = 0.83;
     private final double rightOpen = 0.53;
