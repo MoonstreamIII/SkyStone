@@ -9,9 +9,9 @@ import com.qualcomm.robotcore.util.Range;
 
 //This is a system where the triggers control the speed of the bot. For example, if you have the left stick at full forward and the left trigger half pressed in, you get half power.
 @SuppressWarnings("FieldCanBeLocal")
-@TeleOp(name="SkyBot Op Mode - Linear NoMod",group="Linear")
+@TeleOp(name="SkyBot Op Mode - Linear Speed Toggling",group="Linear")
 //@Disabled
-public class SkyBot_Linear_NoMod extends LinearOpMode {
+public class SkyBot_Linear_ModToggle extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -96,6 +96,13 @@ public class SkyBot_Linear_NoMod extends LinearOpMode {
             /*if (gamepad1.left_bumper||gamepad1.right_bumper) {
                 modulation = 1;
             }*/
+            if (gamepad1.left_bumper) {
+                modulation = 0.35;
+            }
+            if (gamepad1.right_bumper) {
+                modulation = 0.60;
+            }
+
 
 
 

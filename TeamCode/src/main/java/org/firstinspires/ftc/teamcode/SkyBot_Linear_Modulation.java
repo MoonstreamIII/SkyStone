@@ -37,7 +37,7 @@ public class SkyBot_Linear_Modulation extends LinearOpMode {
     private final double rightClosed = 0.19;
     private boolean closed = false;
     private boolean fullOpen = true;
-    private boolean rightStrafe = true;
+    private boolean rightStrafe = false;
     private double modulation = 0;
     private boolean leftBumperToggle = true;
     private boolean rightBumperToggle = true;
@@ -107,7 +107,7 @@ public class SkyBot_Linear_Modulation extends LinearOpMode {
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
             //NOTES: gamepad1.left_stick_y increases as stick goes down.
-            double drive = -gamepad1.left_stick_y;
+            double drive = -gamepad1.left_stick_y+ -gamepad1.right_stick_y;
             //double drive = Math.max( gamepad1.left_stick_y, Math.max(gamepad1.right_stick_y, gamepad1.right_trigger - gamepad1.left_trigger));
             double turn;
             if (rightStrafe) {
