@@ -40,7 +40,6 @@ public class SkyBot_Linear_Modulation_1Hub extends LinearOpMode {
     private boolean fullOpen = true;
     private boolean rightStrafe = true;
     private double modulation = 0;
-    private boolean leftBumperToggle = true;
     private boolean rightBumperToggle = true;
 
     @Override
@@ -120,9 +119,7 @@ public class SkyBot_Linear_Modulation_1Hub extends LinearOpMode {
             }
             double strafe;
             if (rightStrafe) {
-                strafe = (gamepad1.right_stick_x);  //Strafing using the right stick
-            } else
-                strafe = (gamepad1.left_stick_x);  //Strafing using the right stick
+            }
             leftPower    = drive - turn;
             rightPower   = drive + turn;
 

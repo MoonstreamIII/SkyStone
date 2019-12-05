@@ -35,12 +35,16 @@ public class SkyBot_Linear_ModToggle extends LinearOpMode {
     private final double leftOpen = 0.41;
     private final double leftClosed = 0.74;
     private final double rightClosed = 0.19;
+    private final double lowPowerMod = 0.35;
+    private final double highPowerMod = 0.7;
+    private final double turnReductionLowPower = 0.80;
     private boolean closed = false;
     private boolean fullOpen = true;
     private boolean rightStrafe = false;
-    private double modulation = 0.35;
+    private double modulation = 0;
     private boolean leftBumperToggle = true;
     private boolean rightBumperToggle = true;
+    private boolean lowPower = false;
 
     @Override
     public void runOpMode() {
@@ -83,6 +87,11 @@ public class SkyBot_Linear_ModToggle extends LinearOpMode {
             double rightPower;
             double topPower;
             double bottomPower;
+            if (lowPower) {
+                modulation = lowPowerMod;
+            } else {
+                modulation = highPowerMod;
+            }
 
             //Toggles the function that, when active, makes the hand close when any of the bumpers or triggers are pressed. If this is off, the left bumper and trigger open the hand, and the right bumper and trigger close the hand.
             //Toggles if the linear slides are controlled seperately or together. If on, the left stick controls the lower slide and the right stick controls the right slide. If off, both sticks control both slides.
@@ -97,10 +106,10 @@ public class SkyBot_Linear_ModToggle extends LinearOpMode {
                 modulation = 1;
             }*/
             if (gamepad1.left_bumper) {
-                modulation = 0.35;
+                lowPower = true;
             }
             if (gamepad1.right_bumper) {
-                modulation = 0.60;
+                lowPower = false;
             }
 
 
@@ -117,10 +126,15 @@ public class SkyBot_Linear_ModToggle extends LinearOpMode {
             double drive = -gamepad1.left_stick_y+ -gamepad1.right_stick_y;
             //double drive = Math.max( gamepad1.left_stick_y, Math.max(gamepad1.right_stick_y, gamepad1.right_trigger - gamepad1.left_trigger));
             double turn;
+            double turnReduction = 1;
+            if (lowPower) {
+                turnReduction=turnReductionLowPower;
+            }
+
             if (rightStrafe) {
-                turn = -( gamepad1.left_stick_x);  //Turning using the left stick.
+                turn = -(gamepad1.left_stick_x*turnReduction);  //Turning using the left stick.
             } else {
-                turn = -(gamepad1.right_stick_x);
+                turn = -(gamepad1.right_stick_x*turnReduction);
             }
             double strafe;
             if (rightStrafe) {
@@ -137,22 +151,14 @@ public class SkyBot_Linear_ModToggle extends LinearOpMode {
 
             if (leftBumperToggle&&gamepad2.left_bumper) {
                 leftBumperToggle = false;
-                if (fullOpen) {
-                    fullOpen = false;
-                } else {
-                    fullOpen = true;
-                }
+                fullOpen = !fullOpen;
             }
             if (!gamepad2.left_bumper) {
                 leftBumperToggle = true;
             }
             if (rightBumperToggle&&gamepad2.right_bumper) {
                 rightBumperToggle = false;
-                if (closed) {
-                    closed = false;
-                } else {
-                    closed = true;
-                }
+                closed = !closed;
             }
             if (!gamepad2.right_bumper) {
                 rightBumperToggle = true;
