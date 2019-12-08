@@ -56,8 +56,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Skybot: Auto Under Bridge Right", group="Skybot")
-public class SkyBotAuto_UnderBridge_RightSide extends LinearOpMode {
+@Autonomous(name="Skybot: Auto Under Bridge Left", group="Skybot")
+public class SkyBotAuto_CloseClaw extends LinearOpMode {
 
     /* Declare OpMode members. */
     private ElapsedTime     runtime = new ElapsedTime();
@@ -99,38 +99,7 @@ public class SkyBotAuto_UnderBridge_RightSide extends LinearOpMode {
 
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
 
-        // Step 1:  Drive forward for 3 seconds
-        lfd.setPower(TURN_SPEED);
-        rfd.setPower(TURN_SPEED);
-        lbd.setPower(TURN_SPEED);
-        rbd.setPower(TURN_SPEED);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < leg1)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
 
-        // Step 2:  Spin right 1.3 seconds
-        lfd.setPower(TURN_SPEED);
-        rfd.setPower(-TURN_SPEED);
-        lbd.setPower(TURN_SPEED);
-        rbd.setPower(-TURN_SPEED);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < leg2)) {
-            telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-
-        // Step 3:  Drive Forwards for 1 Second
-        lfd.setPower(TURN_SPEED);
-        rfd.setPower(TURN_SPEED);
-        lbd.setPower(TURN_SPEED);
-        rbd.setPower(TURN_SPEED);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < leg3)) {
-            telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
 
         // Step 4:  Stop and close the claw.
         lfd.setPower(0);

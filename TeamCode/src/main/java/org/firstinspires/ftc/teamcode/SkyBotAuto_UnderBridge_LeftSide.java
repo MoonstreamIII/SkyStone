@@ -142,5 +142,7 @@ public class SkyBotAuto_UnderBridge_LeftSide extends LinearOpMode {
         telemetry.addData("Path", "Complete");
         telemetry.update();
         sleep(1000);
+        leftHand.setPosition(leftOpen);
+        rightHand.setPosition(rightOpen);
     }
 }
