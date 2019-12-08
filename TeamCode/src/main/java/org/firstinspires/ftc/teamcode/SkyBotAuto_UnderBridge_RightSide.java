@@ -30,11 +30,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 /**
  * This file illustrates the concept of driving a path based on time.
@@ -57,17 +56,28 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-    @Autonomous(name="Skybot: Auto Drive By Time", group="Skybot")
-@Disabled
-public class SkyBotAutoDriveByTime_Linear_Prototype extends LinearOpMode {
+@Autonomous(name="Skybot: Auto Under Bridge Right", group="Skybot")
+public class SkyBotAuto_UnderBridge_RightSide extends LinearOpMode {
 
     /* Declare OpMode members. */
-    HardwarePushbot         robot   = new HardwarePushbot();   // Use a Pushbot's hardware
     private ElapsedTime     runtime = new ElapsedTime();
-
-
-    static final double     FORWARD_SPEED = 0.6;
-    static final double     TURN_SPEED    = 0.5;
+    private DcMotor lfd = null;
+    private DcMotor rfd = null;
+    private DcMotor lbd = null;
+    private DcMotor rbd = null;
+    private Servo leftHand = null;
+    private Servo rightHand = null;
+    static final double FORWARD_SPEED = AutoReference.UnderBridge.power;
+    static final double TURN_SPEED    = AutoReference.UnderBridge.power;
+    private final double leftFullOpen = 0.13;
+    private final double rightFullOpen = 0.83;
+    private final double rightOpen = 0.53;
+    private final double leftOpen = 0.41;
+    private final double leftClosed = 0.74;
+    private final double rightClosed = 0.19;
+    private final double leg1 = AutoReference.UnderBridge.leg1;
+    private final double leg2 = AutoReference.UnderBridge.leg2;
+    private final double leg3 = AutoReference.UnderBridge.leg3;
 
     @Override
     public void runOpMode() {
@@ -76,7 +86,9 @@ public class SkyBotAutoDriveByTime_Linear_Prototype extends LinearOpMode {
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
-        robot.init(hardwareMap);
+        leftHand.setPosition(leftFullOpen);
+        rightHand.setPosition(rightFullOpen);
+
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
@@ -88,37 +100,41 @@ public class SkyBotAutoDriveByTime_Linear_Prototype extends LinearOpMode {
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
 
         // Step 1:  Drive forward for 3 seconds
-        robot.leftDrive.setPower(FORWARD_SPEED);
-        robot.rightDrive.setPower(FORWARD_SPEED);
+        lfd.setPower(TURN_SPEED);
+        rfd.setPower(TURN_SPEED);
+        lbd.setPower(TURN_SPEED);
+        rbd.setPower(TURN_SPEED);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 3.0)) {
+        while (opModeIsActive() && (runtime.seconds() < leg1)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
 
-        // Step 2:  Spin left 1.3 seconds
-        robot.leftDrive.setPower(-TURN_SPEED);
-        robot.rightDrive.setPower(TURN_SPEED);
+        // Step 2:  Spin right 1.3 seconds
+        lfd.setPower(TURN_SPEED);
+        rfd.setPower(-TURN_SPEED);
+        lbd.setPower(TURN_SPEED);
+        rbd.setPower(-TURN_SPEED);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.3)) {
+        while (opModeIsActive() && (runtime.seconds() < leg2)) {
             telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
 
-        // Step 3:  Drive Backwards for 1 Second
-        robot.leftDrive.setPower(FORWARD_SPEED);
-        robot.rightDrive.setPower(FORWARD_SPEED);
+        // Step 3:  Drive Forwards for 1 Second
+        lfd.setPower(TURN_SPEED);
+        rfd.setPower(TURN_SPEED);
+        lbd.setPower(TURN_SPEED);
+        rbd.setPower(TURN_SPEED);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.0)) {
+        while (opModeIsActive() && (runtime.seconds() < leg3)) {
             telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
 
         // Step 4:  Stop and close the claw.
-        robot.leftDrive.setPower(0);
-        robot.rightDrive.setPower(0);
-        robot.leftClaw.setPosition(1.0);
-        robot.rightClaw.setPosition(0.0);
+        lfd.setPower(0);
+        rfd.setPower(0);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
