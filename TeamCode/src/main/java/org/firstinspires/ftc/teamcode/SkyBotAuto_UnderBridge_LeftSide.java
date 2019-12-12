@@ -30,38 +30,13 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-
-/**
- * This file illustrates the concept of driving a path based on time.
- * It uses the common Pushbot hardware class to define the drive on the robot.
- * The code is structured as a LinearOpMode
- *
- * The code assumes that you do NOT have encoders on the wheels,
- *   otherwise you would use: PushbotAutoDriveByEncoder;
- *
- *   The desired path in this example is:
- *   - Drive forward for 3 seconds
- *   - Spin right for 1.3 seconds
- *   - Drive Backwards for 1 Second
- *   - Stop and close the claw.
- *
- *  The code is written in a simple form with no optimizations.
- *  However, there are several ways that this type of sequence could be streamlined,
- *
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- */
-
 @Autonomous(name="Skybot: Auto Under Bridge Left", group="Skybot")
 public class SkyBotAuto_UnderBridge_LeftSide extends LinearOpMode {
-
     /* Declare OpMode members. */
     private ElapsedTime     runtime = new ElapsedTime();
     private DcMotor lfd = null;
@@ -71,7 +46,7 @@ public class SkyBotAuto_UnderBridge_LeftSide extends LinearOpMode {
     private Servo leftHand = null;
     private Servo rightHand = null;
     static final double FORWARD_SPEED = AutoReference.UnderBridge.power;
-    static final double TURN_SPEED    = AutoReference.UnderBridge.power;
+    private static final double TURN_SPEED    = AutoReference.UnderBridge.power;
     private final double leftFullOpen = 0.13;
     private final double rightFullOpen = 0.83;
     private final double rightOpen = 0.53;
@@ -81,9 +56,31 @@ public class SkyBotAuto_UnderBridge_LeftSide extends LinearOpMode {
     private final double leg1 = AutoReference.UnderBridge.leg1;
     private final double leg2 = AutoReference.UnderBridge.leg2;
     private final double leg3 = AutoReference.UnderBridge.leg3;
+    private DcMotor topSlide = null;
+    private DcMotor bottomSlide = null;
 
     @Override
     public void runOpMode() {
+        leftHand = hardwareMap.get(Servo.class, HardwareReference.LEFT_HAND_SERVO);
+        rightHand = hardwareMap.get(Servo.class, HardwareReference.RIGHT_HAND_SERVO);
+        // Initialize the hardware variables. Note that the strings used here as parameters
+        // to 'get' must correspond to the names assigned during the robot configuration
+        // step (using the FTC Robot Controller app on the phone).
+        lfd  = hardwareMap.get(DcMotor.class, HardwareReference.LEFT_FRONT_DRIVE);
+        rfd = hardwareMap.get(DcMotor.class, HardwareReference.RIGHT_FRONT_DRIVE);
+        lbd  = hardwareMap.get(DcMotor.class, HardwareReference.LEFT_REAR_DRIVE);
+        rbd = hardwareMap.get(DcMotor.class, HardwareReference.RIGHT_REAR_DRIVE);
+        //foo = hardwareMap.get(DcMotor.class, "foo_motor");
+        topSlide = hardwareMap.get(DcMotor.class, HardwareReference.LINEAR_SLIDE_TOP);
+        bottomSlide = hardwareMap.get(DcMotor.class, HardwareReference.LINEAR_SLIDE_BOTTOM);
+        lfd.setDirection(DcMotor.Direction.FORWARD);
+        rfd.setDirection(DcMotor.Direction.REVERSE);
+        lbd.setDirection(DcMotor.Direction.FORWARD);
+        rbd.setDirection(DcMotor.Direction.REVERSE);
+        topSlide.setDirection(DcMotor.Direction.REVERSE);
+        bottomSlide.setDirection(DcMotor.Direction.REVERSE);
+        leftHand.setDirection(Servo.Direction.FORWARD);
+        rightHand.setDirection(Servo.Direction.FORWARD);
 
         /*
          * Initialize the drive system variables.
@@ -91,7 +88,7 @@ public class SkyBotAuto_UnderBridge_LeftSide extends LinearOpMode {
          */
         leftHand.setPosition(leftFullOpen);
         rightHand.setPosition(rightFullOpen);
-        
+
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Ready to run");    //
@@ -99,13 +96,16 @@ public class SkyBotAuto_UnderBridge_LeftSide extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
-
+        while (opModeIsActive() && (runtime.seconds() < leg3)) {
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
 
         // Step 1:  Drive forward for 3 seconds
         lfd.setPower(TURN_SPEED);
-        rfd.setPower(TURN_SPEED);
-        lbd.setPower(TURN_SPEED);
+        rfd.setPower(-TURN_SPEED);
+        lbd.setPower(-TURN_SPEED);
         rbd.setPower(TURN_SPEED);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < leg1)) {
@@ -114,7 +114,7 @@ public class SkyBotAuto_UnderBridge_LeftSide extends LinearOpMode {
         }
 
         // Step 2:  Spin left 1.3 seconds
-        lfd.setPower(-TURN_SPEED);
+        /*lfd.setPower(-TURN_SPEED);
         rfd.setPower(TURN_SPEED);
         lbd.setPower(-TURN_SPEED);
         rbd.setPower(TURN_SPEED);
@@ -133,11 +133,13 @@ public class SkyBotAuto_UnderBridge_LeftSide extends LinearOpMode {
         while (opModeIsActive() && (runtime.seconds() < leg3)) {
             telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
-        }
+        }*/
 
         // Step 4:  Stop and close the claw.
         lfd.setPower(0);
         rfd.setPower(0);
+        lbd.setPower(0);
+        rbd.setPower(0);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();

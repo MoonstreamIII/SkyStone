@@ -91,11 +91,7 @@ public class SkyBot_Linear_Prototype extends LinearOpMode {
             //Toggles the function that, when active, makes the hand close when any of the bumpers or triggers are pressed. If this is off, the left bumper and trigger open the hand, and the right bumper and trigger close the hand.
             if (holdToCloseToggle&&gamepad2.left_stick_button) {
                 holdToCloseToggle = false;
-                if (holdToClose) {
-                    holdToClose = false;
-                } else {
-                    holdToClose = true;
-                }
+                holdToClose = !holdToClose;
             }
             if (!gamepad2.left_stick_button) {
                 holdToCloseToggle = true;
@@ -103,11 +99,7 @@ public class SkyBot_Linear_Prototype extends LinearOpMode {
             //Toggles if the linear slides are controlled seperately or together. If on, the left stick controls the lower slide and the right stick controls the right slide. If off, both sticks control both slides.
             if (separateSlidesToggle&&gamepad2.right_stick_button) {
                 separateSlidesToggle = false;
-                if (separateSlides) {
-                    separateSlides = false;
-                } else {
-                    separateSlides = true;
-                }
+                separateSlides = !separateSlides;
             }
             if (!gamepad2.right_stick_button) {
                 separateSlidesToggle = true;
@@ -135,11 +127,7 @@ public class SkyBot_Linear_Prototype extends LinearOpMode {
 
             //Figuring out if the hand is open or closed
             if (holdToClose) {
-                if (gamepad2.left_bumper||gamepad2.right_bumper||(gamepad2.left_trigger>0)||(gamepad2.right_trigger>0)) {
-                    closed = true;
-                } else {
-                    closed = false;
-                }
+                closed = gamepad2.left_bumper || gamepad2.right_bumper || (gamepad2.left_trigger > 0) || (gamepad2.right_trigger > 0);
             } else {
                 if (gamepad2.left_bumper||(gamepad2.left_trigger>0)) {
                     closed = false;

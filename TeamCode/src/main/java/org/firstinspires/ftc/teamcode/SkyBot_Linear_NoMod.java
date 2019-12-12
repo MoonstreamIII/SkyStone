@@ -130,22 +130,14 @@ public class SkyBot_Linear_NoMod extends LinearOpMode {
 
             if (leftBumperToggle&&gamepad2.left_bumper) {
                 leftBumperToggle = false;
-                if (fullOpen) {
-                    fullOpen = false;
-                } else {
-                    fullOpen = true;
-                }
+                fullOpen = !fullOpen;
             }
             if (!gamepad2.left_bumper) {
                 leftBumperToggle = true;
             }
             if (rightBumperToggle&&gamepad2.right_bumper) {
                 rightBumperToggle = false;
-                if (closed) {
-                    closed = false;
-                } else {
-                    closed = true;
-                }
+                closed = !closed;
             }
             if (!gamepad2.right_bumper) {
                 rightBumperToggle = true;
