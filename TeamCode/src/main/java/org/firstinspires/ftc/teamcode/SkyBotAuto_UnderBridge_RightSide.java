@@ -103,7 +103,18 @@ public class SkyBotAuto_UnderBridge_RightSide extends LinearOpMode {
 
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
 
-        // Step 1:  Drive forward for 3 seconds
+        //Brandon's code begins here:
+        //Step 0: drive forward, to get away from the wall, for 1 second
+        lfd.setPower(TURN_SPEED);
+        rfd.setPower(TURN_SPEED);
+        lbd.setPower(TURN_SPEED);
+        rbd.setPower(TURN_SPEED);
+        while (opModeIsActive() && (runtime.seconds() < 0.5)){
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+
+        // Step 1:  Strafe right for 3 seconds
         lfd.setPower(TURN_SPEED);
         rfd.setPower(-TURN_SPEED);
         lbd.setPower(-TURN_SPEED);
@@ -113,6 +124,8 @@ public class SkyBotAuto_UnderBridge_RightSide extends LinearOpMode {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
+
+
 
         // Step 2:  Spin left 1.3 seconds
         /*lfd.setPower(-TURN_SPEED);

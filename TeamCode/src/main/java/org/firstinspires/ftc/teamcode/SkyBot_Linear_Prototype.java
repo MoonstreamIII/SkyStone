@@ -93,14 +93,21 @@ public class SkyBot_Linear_Prototype extends LinearOpMode {
                 holdToCloseToggle = false;
                 holdToClose = !holdToClose;
             }
+
+
             if (!gamepad2.left_stick_button) {
                 holdToCloseToggle = true;
             }
+//Brandon thinks: You used the code up above such that when you press down the controller, it only sends the signal once, and when you let up, it resets.
+
+
             //Toggles if the linear slides are controlled seperately or together. If on, the left stick controls the lower slide and the right stick controls the right slide. If off, both sticks control both slides.
             if (separateSlidesToggle&&gamepad2.right_stick_button) {
                 separateSlidesToggle = false;
                 separateSlides = !separateSlides;
             }
+
+
             if (!gamepad2.right_stick_button) {
                 separateSlidesToggle = true;
             }
@@ -159,10 +166,10 @@ public class SkyBot_Linear_Prototype extends LinearOpMode {
             if (closed) {
                 rightHand.setPosition(rightClosed);
                 leftHand.setPosition(leftClosed);
-} else {
-        rightHand.setPosition(rightOpen);
-        leftHand.setPosition(leftOpen);
-        }
+            } else {
+                rightHand.setPosition(rightOpen);
+                leftHand.setPosition(leftOpen);
+            }
 
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
@@ -175,3 +182,4 @@ private void depositMineral(DcMotor bottom, DcMotor top) {
 
         }
 }
+

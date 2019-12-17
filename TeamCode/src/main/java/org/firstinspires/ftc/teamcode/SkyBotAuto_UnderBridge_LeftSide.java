@@ -102,6 +102,17 @@ public class SkyBotAuto_UnderBridge_LeftSide extends LinearOpMode {
         }
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
 
+        //Brandon's code begins here
+        //Step 0: Drive Forward to get away from the wall
+        lfd.setPower(TURN_SPEED);
+        rfd.setPower(TURN_SPEED);
+        lbd.setPower(TURN_SPEED);
+        rbd.setPower(TURN_SPEED);
+        while (opModeIsActive() && (runtime.seconds() < 0.5)){
+            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+
         // Step 1:  Drive forward for 3 seconds
         lfd.setPower(TURN_SPEED);
         rfd.setPower(-TURN_SPEED);
