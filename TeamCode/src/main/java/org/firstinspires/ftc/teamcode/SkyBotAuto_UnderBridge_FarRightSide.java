@@ -35,8 +35,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="Skybot: Auto Under Bridge Left", group="Skybot")
-public class SkyBotAuto_UnderBridge_LeftSide extends LinearOpMode {
+@Autonomous(name="Skybot: Auto Under Bridge Far Right", group="Skybot")
+public class SkyBotAuto_UnderBridge_FarRightSide extends LinearOpMode {
     /* Declare OpMode members. */
     private ElapsedTime     runtime = new ElapsedTime();
     private DcMotor lfd = null;
@@ -45,17 +45,17 @@ public class SkyBotAuto_UnderBridge_LeftSide extends LinearOpMode {
     private DcMotor rbd = null;
     private Servo leftHand = null;
     private Servo rightHand = null;
-    static final double FORWARD_SPEED = AutoReference.UnderBridge.power;
-    private static final double TURN_SPEED    = AutoReference.UnderBridge.power;
+    static final double FORWARD_SPEED = AutoReference.FarBridge.power;
+    private static final double TURN_SPEED    = AutoReference.FarBridge.power;
     private final double leftFullOpen = 0.13;
     private final double rightFullOpen = 0.83;
     private final double rightOpen = 0.53;
     private final double leftOpen = 0.41;
     private final double leftClosed = 0.74;
     private final double rightClosed = 0.19;
-    private final double leg1 = AutoReference.UnderBridge.leg1;
-    private final double leg2 = AutoReference.UnderBridge.leg2;
-    private final double leg3 = AutoReference.UnderBridge.leg3;
+    private final double leg1 = AutoReference.FarBridge.leg1;
+    private final double leg2 = AutoReference.FarBridge.leg2;
+    private final double leg3 = AutoReference.FarBridge.leg3;
     private DcMotor topSlide = null;
     private DcMotor bottomSlide = null;
 
@@ -100,6 +100,8 @@ public class SkyBotAuto_UnderBridge_LeftSide extends LinearOpMode {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
+
+        // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
         lfd.setPower(TURN_SPEED*0.1);
         rfd.setPower(TURN_SPEED*0.1);
@@ -111,10 +113,10 @@ public class SkyBotAuto_UnderBridge_LeftSide extends LinearOpMode {
             telemetry.update();
         }
         // Step 1:  Drive forward for 3 seconds
-        lfd.setPower(TURN_SPEED);
-        rfd.setPower(-TURN_SPEED);
-        lbd.setPower(-TURN_SPEED);
-        rbd.setPower(TURN_SPEED);
+        lfd.setPower(-TURN_SPEED);
+        rfd.setPower(TURN_SPEED);
+        lbd.setPower(TURN_SPEED);
+        rbd.setPower(-TURN_SPEED);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < leg2)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
