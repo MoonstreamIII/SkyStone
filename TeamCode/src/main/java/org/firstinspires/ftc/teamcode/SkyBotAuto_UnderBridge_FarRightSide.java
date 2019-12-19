@@ -47,6 +47,7 @@ public class SkyBotAuto_UnderBridge_FarRightSide extends LinearOpMode {
     private Servo rightHand = null;
     static final double FORWARD_SPEED = AutoReference.FarBridge.power;
     private static final double TURN_SPEED    = AutoReference.FarBridge.power;
+    private final double firstLegMultiplier = AutoReference.FarBridge.firstLegMultiplier;
     private final double leftFullOpen = 0.13;
     private final double rightFullOpen = 0.83;
     private final double rightOpen = 0.53;
@@ -103,10 +104,10 @@ public class SkyBotAuto_UnderBridge_FarRightSide extends LinearOpMode {
 
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
-        lfd.setPower(TURN_SPEED*0.1);
-        rfd.setPower(TURN_SPEED*0.1);
-        lbd.setPower(TURN_SPEED*0.1);
-        rbd.setPower(TURN_SPEED*0.1);
+        lfd.setPower(TURN_SPEED*firstLegMultiplier);
+        rfd.setPower(TURN_SPEED*firstLegMultiplier);
+        lbd.setPower(TURN_SPEED*firstLegMultiplier);
+        rbd.setPower(TURN_SPEED*firstLegMultiplier);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < leg1)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
