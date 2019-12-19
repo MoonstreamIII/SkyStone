@@ -66,7 +66,7 @@ public class SkyBot_Linear_NoMod extends LinearOpMode {
         rfd.setDirection(DcMotor.Direction.REVERSE);
         lbd.setDirection(DcMotor.Direction.FORWARD);
         rbd.setDirection(DcMotor.Direction.REVERSE);
-        topSlide.setDirection(DcMotor.Direction.REVERSE);
+        topSlide.setDirection(DcMotor.Direction.FORWARD);
         bottomSlide.setDirection(DcMotor.Direction.REVERSE);
         leftHand.setDirection(Servo.Direction.FORWARD);
         rightHand.setDirection(Servo.Direction.FORWARD);

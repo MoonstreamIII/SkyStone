@@ -56,7 +56,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Skybot: Auto Under Bridge Left", group="Skybot")
+@Autonomous(name="Skybot: Auto Close Claw", group="Skybot")
 public class SkyBotAuto_CloseClaw extends LinearOpMode {
 
     /* Declare OpMode members. */
