@@ -69,7 +69,7 @@ public class SkyBot_Linear_Modulation_1Hub extends LinearOpMode {
         lbd.setDirection(DcMotor.Direction.FORWARD);
         rbd.setDirection(DcMotor.Direction.REVERSE);*/
         topSlide.setDirection(DcMotor.Direction.FORWARD);
-        bottomSlide.setDirection(DcMotor.Direction.REVERSE);
+        bottomSlide.setDirection(DcMotor.Direction.FORWARD);
         leftHand.setDirection(Servo.Direction.FORWARD);
         rightHand.setDirection(Servo.Direction.FORWARD);
 
