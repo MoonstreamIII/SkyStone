@@ -29,8 +29,8 @@ public class SkyBot_Linear_ModToggle extends LinearOpMode {
     private Servo rightHand = null;
     //Currently, all servo positions must remain on
     //the interval [0.13,0.87], or the servos will not respond.
-    private final double leftFullOpen = 0.13;
-    private final double rightFullOpen = 0.83;
+    private final double leftFullOpen = 0.16;
+    private final double rightFullOpen = 0.80;
     private final double rightOpen = 0.53;
     private final double leftOpen = 0.41;
     private final double leftClosed = 0.74;
@@ -40,7 +40,7 @@ public class SkyBot_Linear_ModToggle extends LinearOpMode {
     private final double turnReductionLowPower = 0.80;
     private boolean closed = false;
     private boolean fullOpen = true;
-    private boolean rightStrafe = false;
+    private boolean rightStrafe = true;
     private double modulation = 0;
     private boolean leftBumperToggle = true;
     private boolean rightBumperToggle = true;

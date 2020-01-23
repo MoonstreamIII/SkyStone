@@ -102,10 +102,10 @@ public class SkyBotAuto_UnderBridge_FarLeftSide extends LinearOpMode {
             telemetry.update();
         }
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
-        lfd.setPower(TURN_SPEED*firstLegMultiplier);
-        rfd.setPower(TURN_SPEED*firstLegMultiplier);
-        lbd.setPower(TURN_SPEED*firstLegMultiplier);
-        rbd.setPower(TURN_SPEED*firstLegMultiplier);
+        lfd.setPower(-TURN_SPEED*firstLegMultiplier);
+        rfd.setPower(-TURN_SPEED*firstLegMultiplier);
+        lbd.setPower(-TURN_SPEED*firstLegMultiplier);
+        rbd.setPower(-TURN_SPEED*firstLegMultiplier);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < leg1)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
