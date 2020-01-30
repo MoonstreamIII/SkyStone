@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+@SuppressWarnings({"unused", "FieldCanBeLocal"})
 @Autonomous(name="Skybot: Auto Encoding Test", group="Skybot")
 public class SkyBotAuto_EncodingTest extends LinearOpMode {
     /* Declare OpMode members. */
@@ -46,7 +47,7 @@ public class SkyBotAuto_EncodingTest extends LinearOpMode {
     private Servo leftHand = null;
     private Servo rightHand = null;
     static final double FORWARD_SPEED = AutoReference.UnderBridgeEncoder.power;
-    private static final double TURN_SPEED    = AutoReference.UnderBridgeEncoder.power;
+    private final double TURN_SPEED    = AutoReference.UnderBridgeEncoder.power;
     private final double firstLegMultiplier = AutoReference.UnderBridgeEncoder.firstLegMultiplier;
     private final double leftFullOpen = 0.13;
     private final double rightFullOpen = 0.83;
@@ -82,7 +83,10 @@ public class SkyBotAuto_EncodingTest extends LinearOpMode {
         bottomSlide.setDirection(DcMotor.Direction.REVERSE);
         leftHand.setDirection(Servo.Direction.FORWARD);
         rightHand.setDirection(Servo.Direction.FORWARD);
-
+        rfd.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lfd.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rbd.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lbd.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         /*
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
@@ -98,21 +102,26 @@ public class SkyBotAuto_EncodingTest extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         while (opModeIsActive() && (runtime.seconds() < leg3)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
         rbd.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
-        rbd.setPower(TURN_SPEED);
+        rbd.setPower(0.5);
         runtime.reset();
-        while (opModeIsActive() && (rbd.getCurrentPosition() < leg1)) {
+        while (opModeIsActive() && (rbd.getCurrentPosition() < 1000)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.addData("Path", rbd.getCurrentPosition());
+            telemetry.addData("Message from Isaac", "This is annoying");
             telemetry.update();
         }
+
         rbd.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rbd.setTargetPosition(1000);
         rbd.setPower(TURN_SPEED);
         runtime.reset();
-        while (opModeIsActive() && (lfd.getCurrentPosition() < leg2)) {
+        while (opModeIsActive() && (lfd.getCurrentPosition() < 4000)) {
+            telemetry.addData("Path", rbd.getCurrentPosition());
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
