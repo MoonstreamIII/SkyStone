@@ -101,11 +101,15 @@ public class SkyBotAuto_EncodingTest extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
+        rbd.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rbd.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         while (opModeIsActive() && (runtime.seconds() < leg3)) {
             telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
         rbd.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rbd.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rbd.setTargetPosition(1000);
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
         rbd.setPower(0.5);
         runtime.reset();
@@ -117,7 +121,7 @@ public class SkyBotAuto_EncodingTest extends LinearOpMode {
         }
 
         rbd.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rbd.setTargetPosition(1000);
+        rbd.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rbd.setPower(TURN_SPEED);
         runtime.reset();
         while (opModeIsActive() && (lfd.getCurrentPosition() < 4000)) {
