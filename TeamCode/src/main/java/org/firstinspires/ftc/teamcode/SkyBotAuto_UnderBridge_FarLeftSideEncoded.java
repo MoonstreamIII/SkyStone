@@ -102,6 +102,7 @@ public class SkyBotAuto_UnderBridge_FarLeftSideEncoded extends LinearOpMode {
             telemetry.update();
         }
         lfd.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rbd.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
         lfd.setPower(-TURN_SPEED*firstLegMultiplier);
         rfd.setPower(-TURN_SPEED*firstLegMultiplier);
@@ -113,6 +114,7 @@ public class SkyBotAuto_UnderBridge_FarLeftSideEncoded extends LinearOpMode {
             telemetry.update();
         }
         lfd.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rbd.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // Step 1:  Drive forward for 3 seconds
         lfd.setPower(TURN_SPEED);
         rfd.setPower(-TURN_SPEED);
@@ -124,6 +126,7 @@ public class SkyBotAuto_UnderBridge_FarLeftSideEncoded extends LinearOpMode {
             telemetry.update();
         }
         lfd.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rbd.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Step 2:  Spin left 1.3 seconds
         /*lfd.setPower(-TURN_SPEED);

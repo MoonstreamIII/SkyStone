@@ -109,11 +109,11 @@ public class SkyBotAuto_EncodingTest extends LinearOpMode {
         }
         rbd.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rbd.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rbd.setTargetPosition(1000);
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
         rbd.setPower(0.5);
         runtime.reset();
         while (opModeIsActive() && (rbd.getCurrentPosition() < 1000)) {
+            telemetry.addData("Thing",(rbd.getCurrentPosition()<1000));
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.addData("Path", rbd.getCurrentPosition());
             telemetry.addData("Message from Isaac", "This is annoying");
@@ -122,7 +122,7 @@ public class SkyBotAuto_EncodingTest extends LinearOpMode {
 
         rbd.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rbd.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rbd.setPower(TURN_SPEED);
+        rbd.setPower(TURN_SPEED);/*
         runtime.reset();
         while (opModeIsActive() && (lfd.getCurrentPosition() < 4000)) {
             telemetry.addData("Path", rbd.getCurrentPosition());
@@ -152,7 +152,7 @@ public class SkyBotAuto_EncodingTest extends LinearOpMode {
             telemetry.update();
         }*/
 
-        // Step 4:  Stop and close the claw.
+        // Step 4:  Stop and close the claw.*/
         lfd.setPower(0);
         rfd.setPower(0);
         lbd.setPower(0);
