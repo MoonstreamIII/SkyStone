@@ -27,6 +27,8 @@ public class SkyBot_Linear_ModToggleEncoder extends LinearOpMode {
     private DcMotor bottomSlide = null;
     private Servo leftHand = null;
     private Servo rightHand = null;
+    private Servo leftHook = null;
+    private Servo rightHook = null;
     //Currently, all servo positions must remain on
     //the interval [0.13,0.87], or the servos will not respond.
     private final double leftFullOpen = 0.16;
@@ -38,13 +40,19 @@ public class SkyBot_Linear_ModToggleEncoder extends LinearOpMode {
     private final double lowPowerMod = 0.35;
     private final double highPowerMod = 0.7;
     private final double turnReductionLowPower = 0.80;
-    private boolean closed = false;
+    private final double leftHookOpen = 0.13;
+    private final double rightHookOpen = 0.87;
+    private final double leftHookClosed = 0.87;
+    private final double rightHookClosed = 0.13;
     private boolean fullOpen = true;
     private boolean rightStrafe = true;
     private double modulation = 0;
     private boolean leftBumperToggle = true;
     private boolean rightBumperToggle = true;
+    private boolean rightTriggerToggle = true;
+    private boolean trayGrabber = false;
     private boolean lowPower = false;
+    private boolean rightTrigger = false;
 
     @Override
     public void runOpMode() {
@@ -53,6 +61,8 @@ public class SkyBot_Linear_ModToggleEncoder extends LinearOpMode {
 
         leftHand = hardwareMap.get(Servo.class, HardwareReference.LEFT_HAND_SERVO);
         rightHand = hardwareMap.get(Servo.class, HardwareReference.RIGHT_HAND_SERVO);
+        leftHook = hardwareMap.get(Servo.class, HardwareReference.HOOK_LEFT);
+        rightHook = hardwareMap.get(Servo.class, HardwareReference.HOOK_RIGHT);
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
@@ -151,7 +161,7 @@ public class SkyBot_Linear_ModToggleEncoder extends LinearOpMode {
             topPower = -gamepad2.right_stick_y;
             bottomPower = -gamepad2.left_stick_y;
 
-
+            rightTrigger=(gamepad2.right_trigger>0);
 
             if (leftBumperToggle&&gamepad2.left_bumper) {
                 leftBumperToggle = false;
@@ -162,10 +172,17 @@ public class SkyBot_Linear_ModToggleEncoder extends LinearOpMode {
             }
             if (rightBumperToggle&&gamepad2.right_bumper) {
                 rightBumperToggle = false;
-                closed = !closed;
+                fullOpen = !fullOpen;
             }
             if (!gamepad2.right_bumper) {
                 rightBumperToggle = true;
+            }
+            if (rightTriggerToggle&&rightTrigger) {
+                rightTriggerToggle = false;
+                fullOpen = !fullOpen;
+            }
+            if (!rightTrigger) {
+                rightTriggerToggle = true;
             }
             /*closed = (gamepad2.right_bumper||gamepad2.left_bumper);*/
 
@@ -192,15 +209,8 @@ public class SkyBot_Linear_ModToggleEncoder extends LinearOpMode {
                 rightHand.setPosition(rightFullOpen);
                 leftHand.setPosition(leftFullOpen);
             } else {
-                if (closed) {
-                    rightHand.setPosition(rightClosed);
-                    leftHand.setPosition(leftClosed);
-                } else {
-                    rightHand.setPosition(rightOpen);
-                    leftHand.setPosition(leftOpen);
-                    //rightHand.setPosition(rightFullOpen);
-                    //leftHand.setPosition(leftFullOpen);
-                }
+                rightHand.setPosition(rightClosed);
+                leftHand.setPosition(leftClosed);
             }
         // Show the elapsed game time and wheel power.
         telemetry.addData("Status", "Run Time: " + runtime.toString());

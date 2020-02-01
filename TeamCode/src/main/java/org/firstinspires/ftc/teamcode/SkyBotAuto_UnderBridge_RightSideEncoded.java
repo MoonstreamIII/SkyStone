@@ -98,11 +98,11 @@ public class SkyBotAuto_UnderBridge_RightSideEncoded extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         while (opModeIsActive() && (runtime.seconds() < leg3)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.addData("Path", "Leg 0: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-        lfd.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rbd.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lbd.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lbd.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
         lfd.setPower(TURN_SPEED*firstLegMultiplier);
@@ -110,8 +110,9 @@ public class SkyBotAuto_UnderBridge_RightSideEncoded extends LinearOpMode {
         lbd.setPower(TURN_SPEED*firstLegMultiplier);
         rbd.setPower(TURN_SPEED*firstLegMultiplier);
         runtime.reset();
-        while (opModeIsActive() && (lfd.getCurrentPosition() < leg1)) {
+        while (opModeIsActive() && (lbd.getCurrentPosition() < leg1)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.addData("lbdPos", lbd.getCurrentPosition());
             telemetry.update();
         }
         lfd.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -122,8 +123,8 @@ public class SkyBotAuto_UnderBridge_RightSideEncoded extends LinearOpMode {
         lbd.setPower(TURN_SPEED);
         rbd.setPower(-TURN_SPEED);
         runtime.reset();
-        while (opModeIsActive() && (lfd.getCurrentPosition() < leg2)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+        while (opModeIsActive() && (lbd.getCurrentPosition() < leg2)) {
+            telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
 
@@ -158,7 +159,5 @@ public class SkyBotAuto_UnderBridge_RightSideEncoded extends LinearOpMode {
         telemetry.addData("Path", "Complete");
         telemetry.update();
         sleep(1000);
-        leftHand.setPosition(leftOpen);
-        rightHand.setPosition(rightOpen);
     }
 }

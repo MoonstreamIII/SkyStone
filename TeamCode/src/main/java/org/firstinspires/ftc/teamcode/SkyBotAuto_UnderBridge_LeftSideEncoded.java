@@ -98,7 +98,7 @@ public class SkyBotAuto_UnderBridge_LeftSideEncoded extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         while (opModeIsActive() && (runtime.seconds() < leg3)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.addData("Path", "Leg 0: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
         lfd.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -122,7 +122,7 @@ public class SkyBotAuto_UnderBridge_LeftSideEncoded extends LinearOpMode {
         rbd.setPower(TURN_SPEED);
         runtime.reset();
         while (opModeIsActive() && (lfd.getCurrentPosition() < leg2)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+            telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
 
@@ -157,7 +157,5 @@ public class SkyBotAuto_UnderBridge_LeftSideEncoded extends LinearOpMode {
         telemetry.addData("Path", "Complete");
         telemetry.update();
         sleep(1000);
-        leftHand.setPosition(leftOpen);
-        rightHand.setPosition(rightOpen);
     }
 }

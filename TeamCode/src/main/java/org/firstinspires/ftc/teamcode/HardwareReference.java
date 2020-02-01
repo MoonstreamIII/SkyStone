@@ -13,6 +13,8 @@ public class HardwareReference {
     public static final String RIGHT_HAND_SERVO = "righthand";
     public static final String ARM_BOTTOM = "armbottom";
     public static final String ARM_TOP = "armtop";
+    public static final String HOOK_RIGHT = "hook_right";
+    public static final String HOOK_LEFT = "hook_left";
     //BrandonStuff
 
 }

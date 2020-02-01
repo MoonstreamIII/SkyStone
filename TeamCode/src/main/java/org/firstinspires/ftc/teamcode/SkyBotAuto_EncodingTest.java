@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -37,6 +38,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 @Autonomous(name="Skybot: Auto Encoding Test", group="Skybot")
+@Disabled
 public class SkyBotAuto_EncodingTest extends LinearOpMode {
     /* Declare OpMode members. */
     private ElapsedTime     runtime = new ElapsedTime();
