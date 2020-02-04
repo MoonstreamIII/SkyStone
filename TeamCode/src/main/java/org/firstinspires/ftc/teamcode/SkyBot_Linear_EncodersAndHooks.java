@@ -40,19 +40,15 @@ public class SkyBot_Linear_EncodersAndHooks extends LinearOpMode {
     private final double lowPowerMod = 0.35;
     private final double highPowerMod = 0.7;
     private final double turnReductionLowPower = 0.80;
-    private final double leftHookOpen = 0.13;
-    private final double rightHookOpen = 0.87;
-    private final double leftHookClosed = 0.87;
-    private final double rightHookClosed = 0.13;
+    private double rightHookPos=0.87;
+    private double leftHookPos=0.13;
+    private final double servoMul=0.01;
     private boolean fullOpen = true;
-    private boolean rightStrafe = true;
+    private boolean rightStrafe = false;
     private double modulation = 0;
     private boolean leftBumperToggle = true;
     private boolean rightBumperToggle = true;
-    private boolean rightTriggerToggle = true;
-    private boolean trayGrabber = false;
     private boolean lowPower = false;
-    private boolean rightTrigger = false;
 
     @Override
     public void runOpMode() {
@@ -161,8 +157,6 @@ public class SkyBot_Linear_EncodersAndHooks extends LinearOpMode {
             topPower = -gamepad2.right_stick_y;
             bottomPower = -gamepad2.left_stick_y;
 
-            rightTrigger=(gamepad2.right_trigger>0);
-
             if (leftBumperToggle&&gamepad2.left_bumper) {
                 leftBumperToggle = false;
                 fullOpen = !fullOpen;
@@ -177,15 +171,20 @@ public class SkyBot_Linear_EncodersAndHooks extends LinearOpMode {
             if (!gamepad2.right_bumper) {
                 rightBumperToggle = true;
             }
-            if (rightTriggerToggle&&rightTrigger) {
-                rightTriggerToggle = false;
-                fullOpen = !fullOpen;
+            rightHookPos=(rightHookPos+(gamepad2.right_trigger*servoMul))-(gamepad2.left_trigger*servoMul);
+            leftHookPos=(leftHookPos+(gamepad2.left_trigger*servoMul))-(gamepad2.right_trigger*servoMul);
+            if (rightHookPos<0.13) {
+                rightHookPos=0.13;
             }
-            if (!rightTrigger) {
-                rightTriggerToggle = true;
+            if (leftHookPos<0.13) {
+                leftHookPos=0.13;
             }
-            /*closed = (gamepad2.right_bumper||gamepad2.left_bumper);*/
-
+            if (rightHookPos>0.87) {
+                rightHookPos=0.87;
+            }
+            if (leftHookPos>0.87) {
+                leftHookPos=0.87;
+            }
 
             //Figuring out if the hand is open or closed
 
@@ -200,7 +199,8 @@ public class SkyBot_Linear_EncodersAndHooks extends LinearOpMode {
             rfd.setPower(Range.clip((rightPower+strafe)*modulation, -1.0, 1.0));
             lbd.setPower(Range.clip((leftPower+strafe)*modulation, -1.0, 1.0));
             rbd.setPower(Range.clip((rightPower-strafe)*modulation, -1.0, 1.0));
-
+            leftHook.setPosition(leftHookPos);
+            rightHook.setPosition(rightHookPos);
 
             topSlide.setPower(Range.clip(topPower, -1.0, 1.0));
             bottomSlide.setPower(Range.clip(-bottomPower, -1.0, 1.0));

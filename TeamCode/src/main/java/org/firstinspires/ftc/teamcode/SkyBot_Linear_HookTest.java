@@ -40,10 +40,6 @@ public class SkyBot_Linear_HookTest extends LinearOpMode {
     private final double lowPowerMod = 0.35;
     private final double highPowerMod = 0.7;
     private final double turnReductionLowPower = 0.80;
-    private final double leftHookOpen = 0.13;
-    private final double rightHookOpen = 0.87;
-    private final double leftHookClosed = 0.87;
-    private final double rightHookClosed = 0.13;
     private double rightHookPos=0.5;
     private double leftHookPos=0.5;
     private final double servoMul=0.01;
@@ -53,7 +49,6 @@ public class SkyBot_Linear_HookTest extends LinearOpMode {
     private boolean leftBumperToggle = true;
     private boolean rightBumperToggle = true;
     private boolean rightTriggerToggle = true;
-    private boolean trayGrabber = false;
     private boolean lowPower = false;
     private boolean rightTrigger = false;
 

@@ -45,7 +45,7 @@ public class SkyBot_Linear_ModToggleEncoder extends LinearOpMode {
     private final double leftHookClosed = 0.87;
     private final double rightHookClosed = 0.13;
     private boolean fullOpen = true;
-    private boolean rightStrafe = true;
+    private boolean rightStrafe = false;
     private double modulation = 0;
     private boolean leftBumperToggle = true;
     private boolean rightBumperToggle = true;
