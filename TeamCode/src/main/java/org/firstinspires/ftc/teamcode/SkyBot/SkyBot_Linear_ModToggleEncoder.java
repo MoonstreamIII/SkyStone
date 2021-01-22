@@ -1,5 +1,6 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.SkyBot;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -7,10 +8,12 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.teamcode.HardwareReference;
+
 //This is a system where the triggers control the speed of the bot. For example, if you have the left stick at full forward and the left trigger half pressed in, you get half power.
 @SuppressWarnings("FieldCanBeLocal")
 @TeleOp(name="SkyBot Op Mode - Linear Speed Toggling ENCODERS!",group="Linear")
-//@Disabled
+@Disabled
 public class SkyBot_Linear_ModToggleEncoder extends LinearOpMode {
 
     // Declare OpMode members.

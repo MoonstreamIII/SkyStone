@@ -27,16 +27,20 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.SkyBot;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="Skybot: Auto Grab Tray Left Side", group="Skybot")
-public class SkyBotAuto_GrabTray_LeftSide extends LinearOpMode {
+import org.firstinspires.ftc.teamcode.AutoReference;
+import org.firstinspires.ftc.teamcode.HardwareReference;
+@Disabled
+@Autonomous(name="Skybot: Auto Under Bridge Far Right Encoded", group="Skybot")
+public class SkyBotAuto_UnderBridge_FarRightSideEncoded extends LinearOpMode {
     /* Declare OpMode members. */
     private ElapsedTime     runtime = new ElapsedTime();
     private DcMotor lfd = null;
@@ -45,18 +49,18 @@ public class SkyBotAuto_GrabTray_LeftSide extends LinearOpMode {
     private DcMotor rbd = null;
     private Servo leftHand = null;
     private Servo rightHand = null;
-    static final double FORWARD_SPEED = AutoReference.UnderBridge.power;
-    private static final double TURN_SPEED    = AutoReference.UnderBridge.power;
-    private final double firstLegMultiplier = AutoReference.UnderBridge.firstLegMultiplier;
+    static final double FORWARD_SPEED = AutoReference.FarBridgeEncoder.power;
+    private static final double TURN_SPEED    = AutoReference.FarBridgeEncoder.power;
+    private final double firstLegMultiplier = AutoReference.FarBridgeEncoder.firstLegMultiplier;
     private final double leftFullOpen = 0.13;
     private final double rightFullOpen = 0.83;
     private final double rightOpen = 0.53;
     private final double leftOpen = 0.41;
     private final double leftClosed = 0.74;
     private final double rightClosed = 0.19;
-    private final double leg1 = AutoReference.UnderBridge.leg1;
-    private final double leg2 = AutoReference.UnderBridge.leg2;
-    private final double leg3 = AutoReference.UnderBridge.leg3;
+    private final double leg1 = AutoReference.FarBridge.leg1;
+    private final double leg2 = AutoReference.FarBridge.leg2;
+    private final double leg3 = AutoReference.FarBridge.leg3;
     private DcMotor topSlide = null;
     private DcMotor bottomSlide = null;
 
@@ -97,32 +101,33 @@ public class SkyBotAuto_GrabTray_LeftSide extends LinearOpMode {
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
+        while (opModeIsActive() && (runtime.seconds() < leg3)) {
+            telemetry.addData("Path", "Leg 0: %2.5f S Elapsed", runtime.seconds());
+            telemetry.update();
+        }
+        lfd.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rbd.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
-        lfd.setPower(TURN_SPEED);
-        rfd.setPower(TURN_SPEED);
-        lbd.setPower(TURN_SPEED);
-        rbd.setPower(TURN_SPEED);
+        // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
+        lfd.setPower(-TURN_SPEED*firstLegMultiplier);
+        rfd.setPower(-TURN_SPEED*firstLegMultiplier);
+        lbd.setPower(-TURN_SPEED*firstLegMultiplier);
+        rbd.setPower(-TURN_SPEED*firstLegMultiplier);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < leg1)) {
+        while (opModeIsActive() && (lfd.getCurrentPosition() < leg1)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
+        lfd.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rbd.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // Step 1:  Drive forward for 3 seconds
-        lfd.setPower(TURN_SPEED);
-        rfd.setPower(-TURN_SPEED);
-        lbd.setPower(-TURN_SPEED);
-        rbd.setPower(TURN_SPEED);
+        lfd.setPower(-TURN_SPEED);
+        rfd.setPower(TURN_SPEED);
+        lbd.setPower(TURN_SPEED);
+        rbd.setPower(-TURN_SPEED);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < leg2)) {
+        while (opModeIsActive() && (lfd.getCurrentPosition() < leg2)) {
             telemetry.addData("Path", "Leg 2: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
-        lfd.setPower(TURN_SPEED);
-        rfd.setPower(-TURN_SPEED);
-        lbd.setPower(-TURN_SPEED);
-        rbd.setPower(TURN_SPEED);
-        while (opModeIsActive() && (runtime.seconds() < leg3)) {
-            telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
 
@@ -157,7 +162,5 @@ public class SkyBotAuto_GrabTray_LeftSide extends LinearOpMode {
         telemetry.addData("Path", "Complete");
         telemetry.update();
         sleep(1000);
-        leftHand.setPosition(leftOpen);
-        rightHand.setPosition(rightOpen);
     }
 }

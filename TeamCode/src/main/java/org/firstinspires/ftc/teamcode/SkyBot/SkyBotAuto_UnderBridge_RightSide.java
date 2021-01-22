@@ -27,16 +27,20 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.SkyBot;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="Skybot: Auto Under Bridge Far Right", group="Skybot")
-public class SkyBotAuto_UnderBridge_FarRightSide extends LinearOpMode {
+import org.firstinspires.ftc.teamcode.AutoReference;
+import org.firstinspires.ftc.teamcode.HardwareReference;
+@Disabled
+@Autonomous(name="Skybot: Auto Under Bridge Right", group="Skybot")
+public class SkyBotAuto_UnderBridge_RightSide extends LinearOpMode {
     /* Declare OpMode members. */
     private ElapsedTime     runtime = new ElapsedTime();
     private DcMotor lfd = null;
@@ -45,18 +49,18 @@ public class SkyBotAuto_UnderBridge_FarRightSide extends LinearOpMode {
     private DcMotor rbd = null;
     private Servo leftHand = null;
     private Servo rightHand = null;
-    static final double FORWARD_SPEED = AutoReference.FarBridge.power;
-    private static final double TURN_SPEED    = AutoReference.FarBridge.power;
-    private final double firstLegMultiplier = AutoReference.FarBridge.firstLegMultiplier;
+    static final double FORWARD_SPEED = AutoReference.UnderBridge.power;
+    private static final double TURN_SPEED    = AutoReference.UnderBridge.power;
+    private final double firstLegMultiplier = AutoReference.UnderBridge.firstLegMultiplier;
     private final double leftFullOpen = 0.13;
     private final double rightFullOpen = 0.83;
     private final double rightOpen = 0.53;
     private final double leftOpen = 0.41;
     private final double leftClosed = 0.74;
     private final double rightClosed = 0.19;
-    private final double leg1 = AutoReference.FarBridge.leg1;
-    private final double leg2 = AutoReference.FarBridge.leg2;
-    private final double leg3 = AutoReference.FarBridge.leg3;
+    private final double leg1 = AutoReference.UnderBridge.leg1;
+    private final double leg2 = AutoReference.UnderBridge.leg2;
+    private final double leg3 = AutoReference.UnderBridge.leg3;
     private DcMotor topSlide = null;
     private DcMotor bottomSlide = null;
 
@@ -104,10 +108,10 @@ public class SkyBotAuto_UnderBridge_FarRightSide extends LinearOpMode {
 
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
         // Step through each leg of the path, ensuring that the Auto mode has not been stopped along the way
-        lfd.setPower(-TURN_SPEED*firstLegMultiplier);
-        rfd.setPower(-TURN_SPEED*firstLegMultiplier);
-        lbd.setPower(-TURN_SPEED*firstLegMultiplier);
-        rbd.setPower(-TURN_SPEED*firstLegMultiplier);
+        lfd.setPower(TURN_SPEED*firstLegMultiplier);
+        rfd.setPower(TURN_SPEED*firstLegMultiplier);
+        lbd.setPower(TURN_SPEED*firstLegMultiplier);
+        rbd.setPower(TURN_SPEED*firstLegMultiplier);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < leg1)) {
             telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
